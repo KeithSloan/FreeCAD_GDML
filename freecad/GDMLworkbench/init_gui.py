@@ -30,18 +30,22 @@
 #* Also copyright Keith Sloan                                              * 
 #***************************************************************************/
 
-import FreeCAD
+import FreeCAD, FreeCADGui
 from FreeCAD import *
 from FreeCADGui import Workbench
 import PartGui
 from . import GDMLCommands, GDMLResources
+import os, sys
 
 def processDefault(doc) :
     from importGDML import processGDML
     processGDML(doc,FreeCAD.getResourceDir() + \
                 "Mod/GDML/Resources/Default.gdml")
 
-class GDML_Workbench ( Workbench ):
+class GDML_Workbench (FreeCADGui.Workbench):
+    Icon = os.path.join(os.path.dirname(__file__), "Resources", "icons", "GDMLWorkbench.svg")
+    MenuText = "GDML"
+    ToolTip = "GDML workbench"
 
     class MyObserver():
        def __init__(self):
@@ -54,9 +58,7 @@ class GDML_Workbench ( Workbench ):
     
     "GDML workbench object"
     def __init__(self):
-        self.__class__.Icon = FreeCAD.getResourceDir() + "Mod/GDML/Resources/icons/GDMLWorkbench.svg"
-        self.__class__.MenuText = "GDML"
-        self.__class__.ToolTip = "GDML workbench"
+        pass
 
     def Initialize(self):
         def QT_TRANSLATE_NOOP(scope, text):
